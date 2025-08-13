@@ -307,43 +307,41 @@
       const btn = document.getElementById('submitBtn');
       btn.disabled = true;
       let errorFound = false;
-
+    
       const requiredFields = [
         document.getElementById('name'),
         document.getElementById('dob'),
         document.getElementById('work'),
         document.getElementById('choice')
       ];
-
+    
       const work = document.getElementById('work').value;
       if (work === 'Yes') {
         requiredFields.push(document.getElementById('jobNumber'));
       } else if (work === 'No') {
         requiredFields.push(document.getElementById('phone'), document.getElementById('governorate'));
       }
-
+    
       requiredFields.forEach(f => {
         if (!f.value.trim()) {
           markError(f);
           errorFound = true;
         }
       });
-
+    
       if (errorFound) {
         alert("❌ الرجاء تعبئة جميع الحقول الإلزامية.");
         btn.disabled = false;
         return;
       }
-
-      // جمع القيم
+    
       const name = document.getElementById('name').value.trim();
       const dob = document.getElementById('dob').value;
       const choice = document.getElementById('choice').value;
       const jobNumber = document.getElementById('jobNumber').value.trim();
       const phone = document.getElementById('phone').value.trim();
       const governorate = document.getElementById('governorate').value;
-
-      // جمع أفراد العائلة
+    
       const entries = [];
       if (choice === 'Yes') {
         const count = parseInt(document.getElementById('number').value) || 0;
@@ -362,31 +360,34 @@
           entries.push({ extraName, extraDob, extraRelation });
         }
       }
-
+    
       const payload = {
         name, dob, work, choice,
         jobNumber, phone, governorate,
         entries
       };
-
-      fetch("https://script.google.com/macros/s/AKfycbxzGlSSRNGQSDvmPeafPmw4z0bWj1oI8URP3xulwn5L-RP_MQrsJ7ODd0QxSmUVQIXX/exec", {
+    
+      // ✅ استبدال google.script.run بـ fetch
+      fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec", {
         method: "POST",
-        body: JSON.stringify(payload),
         headers: {
           "Content-Type": "application/json"
-        }
+        },
+        body: JSON.stringify(payload)
       })
-      .then(res => res.text())
-      .then(msg => {
-        alert(msg);
-        clearForm();
-      })
-      .catch(err => {
-        alert("❌ فشل الإرسال: " + err.message);
-        btn.disabled = false;
-      });
-        .processForm(payload);
+        .then(res => res.text())
+        .then(msg => {
+          alert(msg || "✅ تم الحفظ بنجاح.");
+          clearForm();
+        })
+        .catch(err => {
+          alert("❌ فشل الإرسال: " + err.message);
+        })
+        .finally(() => {
+          btn.disabled = false;
+        });
     }
+    
 
     function clearForm() {
       document.querySelectorAll('input, select').forEach(el => { el.value=''; el.classList.remove('error'); });
