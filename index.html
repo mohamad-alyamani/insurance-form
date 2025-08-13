@@ -367,25 +367,21 @@
         entries
       };
     
-    fetch("https://script.google.com/macros/s/AKfycbwE-DzjIJIhc-oH2A3lY2V7x7smOYJqB96Wng41ICmuYbNdnw3BHEUplGKU6DlxwjLM/exec", {
-      method: "POST",
-      // لا تحط mode ولا credentials
-      headers: {
-        "Content-Type": "text/plain;charset=utf-8"  // مهم لتفادي الـ preflight
-      },
-      body: JSON.stringify(payload) // بنضل نرسل JSON كنص
-    })
-      .then(res => res.text())
-      .then(msg => {
-        alert(msg || "✅ تم الحفظ بنجاح.");
+      fetch("https://script.google.com/macros/s/AKfycbwE-DzjIJIhc-oH2A3lY2V7x7smOYJqB96Wng41ICmuYbNdnw3BHEUplGKU6DlxwjLM/exec", {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" }, // ✅ بسيط
+        body: JSON.stringify(payload)
+      })
+      .then(() => {
+        alert("✅ تم الإرسال. رح يتم الحفظ بالشيت.");
         clearForm();
       })
       .catch(err => {
-        alert("❌ فشل الإرسال: " + err.message);
+        // مبدئياً الأخطاء ما بتنوصل ب no-cors، بس منخليه احتياط
+        alert("❌ تعذّر الإرسال: " + err.message);
       })
-      .finally(() => {
-        btn.disabled = false;
-      });
+      .finally(() => btn.disabled = false);
     }
   
       
