@@ -369,18 +369,22 @@
         entries
       };
 
-      google.script.run
-        .withSuccessHandler(msg => {
-          alert(msg);
-          clearForm();
-          if (google.script.host && google.script.host.close) {
-            google.script.host.close();
-          }
-        })
-        .withFailureHandler(err => {
-          alert("❌ فشل الإرسال: " + err.message);
-          btn.disabled = false;
-        })
+      fetch("https://script.google.com/macros/s/AKfycbxzGlSSRNGQSDvmPeafPmw4z0bWj1oI8URP3xulwn5L-RP_MQrsJ7ODd0QxSmUVQIXX/exec", {
+        method: "POST",
+        body: JSON.stringify(payload),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then(res => res.text())
+      .then(msg => {
+        alert(msg);
+        clearForm();
+      })
+      .catch(err => {
+        alert("❌ فشل الإرسال: " + err.message);
+        btn.disabled = false;
+      });
         .processForm(payload);
     }
 
