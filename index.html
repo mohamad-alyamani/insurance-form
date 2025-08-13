@@ -367,7 +367,6 @@
         entries
       };
     
-      // ✅ استبدال google.script.run بـ fetch
       fetch("https://script.google.com/macros/s/AKfycbxzGlSSRNGQSDvmPeafPmw4z0bWj1oI8URP3xulwn5L-RP_MQrsJ7ODd0QxSmUVQIXX/exec", {
         method: "POST",
         headers: {
@@ -387,7 +386,8 @@
           btn.disabled = false;
         });
     }
-    
+  
+      
 
     function clearForm() {
       document.querySelectorAll('input, select').forEach(el => { el.value=''; el.classList.remove('error'); });
