@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <base target="_top">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>نموذج التأمين الصحي – أشيائي</title>
+  <style>
+    :root{
+      --brand-yellow:#FFCC00;
+      --brand-yellow-dark:#E6B800;
+      --black:#111111;
+      --gray-100:#f7f7f7;
+      --gray-200:#efefef;
+      --gray-400:#bdbdbd;
+      --text:#1a1a1a;
+      --muted:#555;
+      --danger:#c1272d;
+      --focus:#1a1a1a;
+      --card-bg:#ffffff;
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0; padding:0; font-family:"Segoe UI", Tahoma, Arial, sans-serif; color:var(--text); background:var(--gray-100); height: 100%;}
+
+    body{
+      display: flex;
+      flex-direction: column;
+    }
+    /* ======= Header (Formal) ======= */
+    .site-header{
+      background:#fff;
+      border-bottom: 4px solid var(--brand-yellow);
+    }
+    .header-inner{
+      max-width: 980px; margin: 0 auto; padding: 12px 16px 16px; display:grid; grid-template-columns: 120px 1fr; gap:16px; align-items:center;
+    }
+    .logo-wrap{
+      width:120px; height:120px; border:1px solid var(--gray-200); border-radius:12px; display:flex; align-items:center; justify-content:center; background:#fff;
+    }
+    .logo{ max-width:90%; max-height:90% }
+
+    .hero-copy h1{
+      margin:0 0 8px; font-size: clamp(12px, 2vw, 20px); line-height:1.5; font-weight:800; color:var(--black);
+    }
+    .hero-copy p{
+      margin:0; color:var(--muted); font-size:16px;
+    }
+
+    .divider-bar{
+      height: 6px; background: var(--brand-yellow);
+      box-shadow: inset 0 -1px 0 #d9b100;
+    }
+
+    /* ======= Form Card ======= */
+    .page{ padding: 26px 16px 36px; }
+    .form-container{
+      max-width: 980px; margin: 0 auto; background: var(--card-bg);
+      border:1px solid var(--gray-200); border-radius: 14px; padding: 18px 18px 22px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+    }
+
+    .section-title{
+      font-size:18px; font-weight:800; margin: 6px 0 14px; color:var(--black);
+      padding-inline:8px; border-right: 5px solid var(--brand-yellow);
+    }
+
+    label{
+      display:block; margin-top:14px; font-weight:700; color:#333; font-size:14px;
+    }
+    .hint{ font-size:12px; color:var(--muted); margin-top:4px }
+
+    input, select{
+      width:100%; margin-top:8px; padding:12px 12px; border-radius:10px;
+      border:1px solid var(--gray-200); outline:none; font-size:14px; color:var(--text);
+      background:#fff; transition: box-shadow .15s, border-color .15s;
+    }
+    input:focus, select:focus{
+      border-color: var(--black);
+      box-shadow: 0 0 0 3px rgba(0,0,0,0.08);
+    }
+    input.error, select.error{
+      border-color: var(--danger) !important;
+      box-shadow: 0 0 0 3px rgba(193,39,45,0.12);
+      background: #fff7f7;
+    }
+
+    .row{ display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
+    @media (max-width: 780px){ .header-inner{grid-template-columns: 1fr; justify-items:start} .row{grid-template-columns:1fr} .logo-wrap{width:120px; height:120px;} }
+
+    .entry-box{
+      border:1px dashed var(--gray-200);
+      background:#fff;
+      padding:14px; margin-top:14px; border-radius:12px;
+    }
+    .entry-box h4{ margin:0 0 10px; color:var(--black); font-weight:800; font-size:15px }
+
+    .actions{ display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-top:22px }
+    .btn{
+      appearance:none; border:none; cursor:pointer; border-radius:10px; padding:12px 18px; font-weight:800; font-size:15px;
+      color:#000; width:100%; max-width:320px; background: var(--brand-yellow);
+      box-shadow: 0 2px 0 #d9b100; transition: transform .06s ease, box-shadow .12s, filter .12s;
+    }
+    .btn:hover{ filter:brightness(1.02) }
+    .btn:active{ transform: translateY(1px); box-shadow: 0 1px 0 #d9b100 }
+    .btn:disabled{ background: #e6e6e6; color:#888; box-shadow:none; cursor:not-allowed }
+
+    main.page{
+      flex: 1; /* يمدد المحتوى ليملأ المساحة الفارغة */
+    }
+
+    /* ======= Footer (Formal) ======= */
+    footer{
+      background:#fff; border-top:1px solid var(--gray-200);
+      margin-top: 0;
+    }
+    .footer-inner{
+      max-width:980px; margin:0 auto; padding:12px 16px; display:flex; align-items:center; justify-content:center; gap:10px; color:#333;
+      font-weight:600;
+    }
+    .footer-dot{
+      width:8px; height:8px; border-radius:50%; background:var(--brand-yellow);
+      box-shadow: 0 0 0 3px rgba(255,204,0,0.25);
+    }
+
+    .footer-message{
+      max-width:980px;
+      margin:8px auto 0;
+      padding:8px 16px 20px;
+      font-size:18px;
+      font-weight:700;
+      text-align:center;
+      color:var(--black);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo-wrap">
+        <img class="logo" src="https://media.licdn.com/dms/image/v2/D4D0BAQHb-lYJO_F3Tg/company-logo_200_200/company-logo_200_200/0/1729167009284/mythings__logo?e=1758153600&v=beta&t=GireHZ1TfAmv1IplR-9eMDy9VMrA9GVKYY3xSYfMSzc" alt="Mythings logo">
+      </div>
+      <div class="hero-copy">
+        <h1>لأنك جزء من نجاحنا، أشيائي الشركة الوحيدة والأولى بالأردن بتوفّر تأمين صحي لأبطال قسم التوصيل — تأمين درجة أولى وخاص.</h1>
+        <p>عبّي الفورم الآن — صحتك مش خيار، صحتك ضرورة.</p>
+      </div>
+    </div>
+    <div class="divider-bar"></div>
+  </header>
+
+  <!-- Form -->
+  <main class="page">
+    <div class="form-container">
+
+      <div class="section-title">البيانات الأساسية</div>
+      <div class="row">
+        <div>
+          <label>الاسم</label>
+          <input type="text" id="name" required>
+        </div>
+        <div>
+          <label>تاريخ الميلاد</label>
+          <input type="date" id="dob" required>
+        </div>
+      </div>
+
+      <label>هل تعمل معنا؟</label>
+      <select id="work" required onchange="handleWorkChange(this.value)">
+        <option value="">-- اختر --</option>
+        <option value="No">لا</option>
+        <option value="Yes">نعم</option>
+      </select>
+
+      <div class="row" id="jobBox" style="display:none;">
+        <div>
+          <label>الرقم الوظيفي</label>
+          <input type="text" id="jobNumber" inputmode="numeric" placeholder="مثال: 12345">
+          <div class="hint">في حال كنت موظفًا معنا</div>
+        </div>
+      </div>
+
+      <div id="contactBox" style="display:none;">
+        <div class="row">
+          <div>
+            <label>رقم الهاتف</label>
+            <input type="tel" id="phone" placeholder="مثال: 07XXXXXXXX" inputmode="tel">
+          </div>
+          <div>
+            <label>المحافظة</label>
+            <select id="governorate">
+              <option value="">-- اختر --</option>
+              <option value="عمان">عمان</option>
+              <option value="اربد">اربد</option>
+              <option value="مادبا">مادبا</option>
+              <option value="الزرقاء">الزرقاء</option>
+              <option value="العقبة">العقبة</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title">أفراد العائلة</div>
+      <label>هل ترغب بإضافة أفراد العائلة؟</label>
+      <select id="choice" onchange="handleChoice(this.value)" required>
+        <option value="">-- اختر --</option>
+        <option value="No">لا</option>
+        <option value="Yes">نعم</option>
+      </select>
+
+      <div id="numberDiv" style="display:none;">
+        <label>عدد الأفراد</label>
+        <input type="number" id="number" min="1" onchange="generateDialogs()">
+      </div>
+
+      <div id="dynamicDialogs"></div>
+
+      <div class="actions">
+        <button id="submitBtn" class="btn" onclick="submitForm()">إرسال البيانات</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-message">
+      مش مهم كم سنة صرلك بالبلد، المهم شو بتقدم لأهل البلد
+    </div>
+    <div class="footer-inner">
+      <span class="footer-dot"></span>
+      <span>أشيائي شركة أردنية&nbsp;مية&nbsp;بالمية</span>
+    </div>
+
+  </footer>
+
+  <script>
+    function handleWorkChange(value){
+      const isYes = value === 'Yes';
+      const isNo  = value === 'No';
+      document.getElementById('jobBox').style.display = isYes ? 'block' : 'none';
+      document.getElementById('contactBox').style.display = isNo  ? 'block' : 'none';
+
+      const jobNumber = document.getElementById('jobNumber');
+      const phone = document.getElementById('phone');
+      const governorate = document.getElementById('governorate');
+
+      jobNumber.required = isYes;
+      phone.required = isNo;
+      governorate.required = isNo;
+
+      if (!isYes) jobNumber.value = '';
+      if (!isNo){ phone.value = ''; governorate.value = ''; }
+
+      [jobNumber, phone, governorate].forEach(el=>{
+        if(el){ el.classList.remove('error'); }
+      });
+    }
+
+    function handleChoice(value) {
+      const show = value === 'Yes';
+      document.getElementById('numberDiv').style.display = show ? 'block' : 'none';
+      document.getElementById('dynamicDialogs').innerHTML = '';
+      document.getElementById('number').value = '';
+    }
+
+    function generateDialogs() {
+      const container = document.getElementById('dynamicDialogs');
+      container.innerHTML = '';
+      const count = parseInt(document.getElementById('number').value);
+      if (isNaN(count) || count < 1) return;
+
+      for (let i = 1; i <= count; i++) {
+        const box = document.createElement('div');
+        box.className = 'entry-box';
+        box.innerHTML = `
+          <h4>فرد رقم ${i}</h4>
+          <div class="row">
+            <div>
+              <label>الاسم</label>
+              <input type="text" id="extraName_${i}" required>
+            </div>
+            <div>
+              <label>تاريخ الميلاد</label>
+              <input type="date" id="extraDob_${i}" required>
+            </div>
+          </div>
+          <label>العلاقة</label>
+          <select id="extraRelation_${i}" required>
+            <option value="">-- اختر --</option>
+            <option value="زوج">زوج</option>
+            <option value="زوجة">زوجة</option>
+            <option value="ابن">ابن</option>
+            <option value="ابنه">ابنه</option>
+          </select>
+        `;
+        container.appendChild(box);
+      }
+    }
+
+    function markError(el) {
+      el.classList.add('error');
+      el.addEventListener('input', () => el.classList.remove('error'), { once: true });
+    }
+
+    function submitForm() {
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      let errorFound = false;
+
+      const requiredFields = [
+        document.getElementById('name'),
+        document.getElementById('dob'),
+        document.getElementById('work'),
+        document.getElementById('choice')
+      ];
+
+      const work = document.getElementById('work').value;
+      if (work === 'Yes') {
+        requiredFields.push(document.getElementById('jobNumber'));
+      } else if (work === 'No') {
+        requiredFields.push(document.getElementById('phone'), document.getElementById('governorate'));
+      }
+
+      requiredFields.forEach(f => {
+        if (!f.value.trim()) {
+          markError(f);
+          errorFound = true;
+        }
+      });
+
+      if (errorFound) {
+        alert("❌ الرجاء تعبئة جميع الحقول الإلزامية.");
+        btn.disabled = false;
+        return;
+      }
+
+      // جمع القيم
+      const name = document.getElementById('name').value.trim();
+      const dob = document.getElementById('dob').value;
+      const choice = document.getElementById('choice').value;
+      const jobNumber = document.getElementById('jobNumber').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const governorate = document.getElementById('governorate').value;
+
+      // جمع أفراد العائلة
+      const entries = [];
+      if (choice === 'Yes') {
+        const count = parseInt(document.getElementById('number').value) || 0;
+        for (let i = 1; i <= count; i++) {
+          const extraName = (document.getElementById(`extraName_${i}`)?.value || '').trim();
+          const extraDob = document.getElementById(`extraDob_${i}`)?.value || '';
+          const extraRelation = document.getElementById(`extraRelation_${i}`)?.value || '';
+          if (!extraName || !extraDob || !extraRelation) {
+            markError(document.getElementById(`extraName_${i}`));
+            markError(document.getElementById(`extraDob_${i}`));
+            markError(document.getElementById(`extraRelation_${i}`));
+            alert(`❌ الرجاء تعبئة جميع بيانات فرد رقم ${i}.`);
+            btn.disabled = false;
+            return;
+          }
+          entries.push({ extraName, extraDob, extraRelation });
+        }
+      }
+
+      const payload = {
+        name, dob, work, choice,
+        jobNumber, phone, governorate,
+        entries
+      };
+
+      google.script.run
+        .withSuccessHandler(msg => {
+          alert(msg);
+          clearForm();
+          if (google.script.host && google.script.host.close) {
+            google.script.host.close();
+          }
+        })
+        .withFailureHandler(err => {
+          alert("❌ فشل الإرسال: " + err.message);
+          btn.disabled = false;
+        })
+        .processForm(payload);
+    }
+
+    function clearForm() {
+      document.querySelectorAll('input, select').forEach(el => { el.value=''; el.classList.remove('error'); });
+      document.getElementById('dynamicDialogs').innerHTML = '';
+      document.getElementById('numberDiv').style.display = 'none';
+      document.getElementById('jobBox').style.display = 'none';
+      document.getElementById('contactBox').style.display = 'none';
+      document.getElementById('submitBtn').disabled = false;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      handleWorkChange(document.getElementById('work').value);
+    });
+  </script>
+</body>
+</html>
