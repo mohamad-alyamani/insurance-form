@@ -367,24 +367,25 @@
         entries
       };
     
-      fetch("https://script.google.com/macros/s/AKfycbwE-DzjIJIhc-oH2A3lY2V7x7smOYJqB96Wng41ICmuYbNdnw3BHEUplGKU6DlxwjLM/exec", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(payload)
+    fetch("https://script.google.com/macros/s/AKfycbwE-DzjIJIhc-oH2A3lY2V7x7smOYJqB96Wng41ICmuYbNdnw3BHEUplGKU6DlxwjLM/exec", {
+      method: "POST",
+      // لا تحط mode ولا credentials
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8"  // مهم لتفادي الـ preflight
+      },
+      body: JSON.stringify(payload) // بنضل نرسل JSON كنص
+    })
+      .then(res => res.text())
+      .then(msg => {
+        alert(msg || "✅ تم الحفظ بنجاح.");
+        clearForm();
       })
-        .then(res => res.text())
-        .then(msg => {
-          alert(msg || "✅ تم الحفظ بنجاح.");
-          clearForm();
-        })
-        .catch(err => {
-          alert("❌ فشل الإرسال: " + err.message);
-        })
-        .finally(() => {
-          btn.disabled = false;
-        });
+      .catch(err => {
+        alert("❌ فشل الإرسال: " + err.message);
+      })
+      .finally(() => {
+        btn.disabled = false;
+      });
     }
   
       
